@@ -914,6 +914,10 @@ func updateIndexSearchAttributes(
 			updateDBRecord = true
 			continue
 		}
+		// An empty map is read back as nil from persistence.
+		if isa.CustomSearchAttributes == nil {
+			isa.CustomSearchAttributes = make(map[string]enumspb.IndexedValueType)
+		}
 
 		for k, v := range initialValue.CustomSearchAttributes {
 			if _, ok := isa.CustomSearchAttributes[k]; !ok {
